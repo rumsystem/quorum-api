@@ -1,0 +1,2782 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Quorum Api Docs",
+        "title": "Quorum Api",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/v1/block/{group_id}/{block_id}": {
+            "get": {
+                "description": "Get a block from a group",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Chain"
+                ],
+                "summary": "GetBlock",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Block Id",
+                        "name": "block_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pb.Block"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group": {
+            "post": {
+                "description": "Create a new group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "CreateGroup",
+                "parameters": [
+                    {
+                        "description": "GroupInfo",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.CreateGroupParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.GroupSeed"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/announce": {
+            "post": {
+                "description": "Announce User's encryption Pubkey to the group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "AnnounceUserPubkey",
+                "parameters": [
+                    {
+                        "description": "AnnounceParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AnnounceParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AnnounceResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/appconfig": {
+            "post": {
+                "description": "set app config",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "MgrAppConfig",
+                "parameters": [
+                    {
+                        "description": "AppConfigParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AppConfigParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AppConfigResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/chainconfig": {
+            "post": {
+                "description": "chain config",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "chainconfig",
+                "parameters": [
+                    {
+                        "description": "ChainConfigParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ChainConfigParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ChainConfigResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/clear": {
+            "post": {
+                "description": "Clear group data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "ClearGroupData",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ClearGroupDataResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/content": {
+            "post": {
+                "description": "Post object to a group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "PostToGroup",
+                "parameters": [
+                    {
+                        "description": "Activity object",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pb.Activity"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.TrxResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/join": {
+            "post": {
+                "description": "Join a group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "JoinGroup",
+                "parameters": [
+                    {
+                        "description": "GroupSeed",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.GroupSeed"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.JoinGroupResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/leave": {
+            "post": {
+                "description": "Leave a new group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "LeaveGroup",
+                "parameters": [
+                    {
+                        "description": "LeaveGroupParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.LeaveGroupParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "LeaveGroupResult",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.LeaveGroupResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/producer": {
+            "post": {
+                "description": "add a peer to the group producer list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "AddProducer",
+                "parameters": [
+                    {
+                        "description": "GrpProducerParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.GrpProducerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.GrpProducerResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/profile": {
+            "post": {
+                "description": "Update user profile",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "UpdateProfile",
+                "parameters": [
+                    {
+                        "description": "Activity object",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pb.Activity"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.SchemaResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/schema": {
+            "post": {
+                "description": "Add schema to group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Group"
+                ],
+                "summary": "Schema",
+                "parameters": [
+                    {
+                        "description": "schema param",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.SchemaParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.SchemaResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/user": {
+            "post": {
+                "description": "add a user to a private group users list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "AddUsers",
+                "parameters": [
+                    {
+                        "description": "GrpUserParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.GrpUserParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.GrpUserResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/announced/producers": {
+            "get": {
+                "description": "Get the list of group producers",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "GetAnnouncedGroupProducer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.AnnouncedProducerListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/announced/user/:sign_pubkey": {
+            "get": {
+                "description": "Get the one user announce status",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "GetAnnouncedGroupUser",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User SignPubkey",
+                        "name": "sign_pubkey",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AnnouncedUserListItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/announced/users": {
+            "get": {
+                "description": "Get the list of private group users",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "GetAnnouncedGroupUsers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.AnnouncedUserListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/app/schema": {
+            "get": {
+                "description": "Get group schema",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Group"
+                ],
+                "summary": "GetGroupAppSchema",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_pkg_api.SchemaListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/config/keylist": {
+            "get": {
+                "description": "get app config key list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "GetAppConfigKey",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.AppConfigKeyListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/config/{key}": {
+            "get": {
+                "description": "get app config item",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "GetAppConfigItem",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "itemKey",
+                        "name": "key",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AppConfigKeyItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/content": {
+            "get": {
+                "description": "Get group content",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "GetGroupCtn",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/api.GroupContentObjectItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/producers": {
+            "get": {
+                "description": "Get the list of group producers",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "GetGroupProducers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.ProducerListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/seed": {
+            "get": {
+                "description": "get group seed from appdb",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "Get group seed",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.GroupSeed"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/startsync": {
+            "post": {
+                "description": "Start sync",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Group"
+                ],
+                "summary": "StartSync",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.StartSyncResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/trx/allowlist": {
+            "get": {
+                "description": "Get group allow list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "GetChainTrxAllowList",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.ChainSendTrxRuleListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/trx/auth/{trx_type}": {
+            "get": {
+                "description": "GetChainTrxAuthMode",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "GetChainTrxAuthMode",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "trxType",
+                        "name": "trx_type",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.TrxAuthItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group/{group_id}/trx/denylist": {
+            "get": {
+                "description": "Get the list of denied users",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management"
+                ],
+                "summary": "GetDeniedUserList",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.ChainSendTrxRuleListItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/groups": {
+            "get": {
+                "description": "Get all joined groups",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "GetGroups",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GroupInfoList"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/network": {
+            "get": {
+                "description": "Get node's network information",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "GetNetwork",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.NetworkInfo"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/network/peers": {
+            "post": {
+                "description": "Connect to peers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "AddPeers",
+                "parameters": [
+                    {
+                        "description": "Peers List",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AddPeerResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/network/peers/ping": {
+            "get": {
+                "description": "PingPeer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "PingPeer",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_pkg_api.AddrProtoPair"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/node": {
+            "get": {
+                "description": "Return the bootstrap node info",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "GetBootstrapNodeInfo",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/psping": {
+            "post": {
+                "description": "Pubsub ping utility",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "PubsubPing",
+                "parameters": [
+                    {
+                        "description": "pingparam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_pkg_api.PSPingParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.PingResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/trx/{group_id}/{trx_id}": {
+            "get": {
+                "description": "Get a transaction a group",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Chain"
+                ],
+                "summary": "GetTrx",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Transaction Id",
+                        "name": "trx_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pb.Trx"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/api/v1/group/{group_id}/content": {
+            "post": {
+                "description": "Get contents in a group",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apps"
+                ],
+                "summary": "GetGroupContents",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Group Id",
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "the count of returns results",
+                        "name": "num",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "reverse = true will return results by most recently",
+                        "name": "reverse",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "returns results from this trxid, but exclude it",
+                        "name": "starttrx",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "include the start trx",
+                        "name": "includestarttrx",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "the nonce of trx, the default value is the latest",
+                        "name": "nonce",
+                        "in": "query"
+                    },
+                    {
+                        "description": "SenderList",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.SenderList"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/api.GroupContentObjectItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/app/api/v1/token/apply": {
+            "post": {
+                "description": "Get a auth token for authorizing requests from remote",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apps"
+                ],
+                "summary": "GetAuthToken",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "current auth token",
+                        "name": "Authorization",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "a auth token",
+                        "schema": {
+                            "$ref": "#/definitions/api.TokenItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/api/v1/token/refresh": {
+            "post": {
+                "description": "Get a new auth token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apps"
+                ],
+                "summary": "RefreshToken",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "current auth token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "a new auth token",
+                        "schema": {
+                            "$ref": "#/definitions/api.TokenItem"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.GroupContentObjectItem": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "$ref": "#/definitions/proto.Message"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "trxId": {
+                    "type": "string"
+                },
+                "typeUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.GroupInfoList": {
+            "type": "object",
+            "properties": {
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/api.groupInfo"
+                    }
+                }
+            }
+        },
+        "api.JoinGroupResult": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "cipher_key": {
+                    "type": "string"
+                },
+                "consensus_type": {
+                    "type": "string"
+                },
+                "encryption_type": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "group_name": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                },
+                "user_encryptpubkey": {
+                    "type": "string"
+                },
+                "user_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.SenderList": {
+            "type": "object",
+            "properties": {
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "api.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.groupInfo": {
+            "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "group_id",
+                "group_name",
+                "group_status",
+                "highest_block_id",
+                "highest_height",
+                "last_updated",
+                "owner_pubkey",
+                "user_eth_addr",
+                "user_pubkey"
+            ],
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "cipher_key": {
+                    "type": "string"
+                },
+                "consensus_type": {
+                    "type": "string"
+                },
+                "encryption_type": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "group_name": {
+                    "type": "string"
+                },
+                "group_status": {
+                    "type": "string"
+                },
+                "highest_block_id": {
+                    "type": "string"
+                },
+                "highest_height": {
+                    "type": "integer"
+                },
+                "last_updated": {
+                    "type": "integer"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "user_eth_addr": {
+                    "type": "string"
+                },
+                "user_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "chain.PublishQueueItem": {
+            "type": "object",
+            "properties": {
+                "UpdateAt": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "groupId": {
+                    "description": "also stored in the key for quick indexing",
+                    "type": "string"
+                },
+                "retryCount": {
+                    "type": "integer"
+                },
+                "state": {
+                    "description": "in value only",
+                    "type": "string"
+                },
+                "trx": {
+                    "$ref": "#/definitions/pb.Trx"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.AddrProtoPair": {
+            "type": "object",
+            "properties": {
+                "local": {
+                    "type": "string"
+                },
+                "protocol": {
+                    "type": "string"
+                },
+                "remote": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.GrpUserParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "user_pubkey"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "user_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.GrpUserResult": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "encrypt_pubkey": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "sign": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                },
+                "user_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.PSPingParam": {
+            "type": "object",
+            "required": [
+                "peer_id"
+            ],
+            "properties": {
+                "peer_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.SchemaListItem": {
+            "type": "object",
+            "required": [
+                "rule",
+                "timeStamp",
+                "type"
+            ],
+            "properties": {
+                "rule": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.SchemaParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "memo",
+                "type"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "rule": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.SchemaResult": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "owner_pubkey",
+                "schema_rule",
+                "schema_type",
+                "sign",
+                "trx_id"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "schema_rule": {
+                    "type": "string"
+                },
+                "schema_type": {
+                    "type": "string"
+                },
+                "sign": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_internal_pkg_api.StartSyncResult": {
+            "type": "object",
+            "required": [
+                "groupId"
+            ],
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.AddPeerResult": {
+            "type": "object",
+            "properties": {
+                "err_count": {
+                    "type": "integer"
+                },
+                "succ_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.AnnounceParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "memo",
+                "type"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.AnnounceResult": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "sign",
+                "sign_pubkey",
+                "trx_id",
+                "type"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "encrypt_pubkey": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "sign": {
+                    "type": "string"
+                },
+                "sign_pubkey": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.AnnouncedProducerListItem": {
+            "type": "object",
+            "required": [
+                "action",
+                "announcedPubkey",
+                "announcerSign",
+                "memo",
+                "result",
+                "timeStamp"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "announcedPubkey": {
+                    "type": "string"
+                },
+                "announcerSign": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "result": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.AnnouncedUserListItem": {
+            "type": "object",
+            "properties": {
+                "announcedEncryptPubkey": {
+                    "type": "string"
+                },
+                "announcedSignPubkey": {
+                    "type": "string"
+                },
+                "announcerSign": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "result": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.AppConfigKeyItem": {
+            "type": "object",
+            "properties": {
+                "memo": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ownerPubkey": {
+                    "type": "string"
+                },
+                "ownerSign": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.AppConfigKeyListItem": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.AppConfigParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "name",
+                "type",
+                "value"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.AppConfigResult": {
+            "type": "object",
+            "required": [
+                "group_id",
+                "signature",
+                "trx_id"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.ChainConfigParams": {
+            "type": "object",
+            "required": [
+                "config",
+                "group_id",
+                "type"
+            ],
+            "properties": {
+                "config": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.ChainConfigResult": {
+            "type": "object",
+            "required": [
+                "group_id",
+                "owner_pubkey",
+                "signature",
+                "trx_id"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.ChainSendTrxRuleListItem": {
+            "type": "object",
+            "required": [
+                "groupOwnerPubkey",
+                "groupOwnerSign",
+                "memo",
+                "pubkey",
+                "timeStamp",
+                "trxType"
+            ],
+            "properties": {
+                "groupOwnerPubkey": {
+                    "type": "string"
+                },
+                "groupOwnerSign": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "pubkey": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "trxType": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "handlers.ClearGroupDataResult": {
+            "type": "object",
+            "required": [
+                "group_id",
+                "signature"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.CreateGroupParam": {
+            "type": "object",
+            "required": [
+                "app_key",
+                "consensus_type",
+                "encryption_type",
+                "group_name"
+            ],
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "consensus_type": {
+                    "type": "string"
+                },
+                "encryption_type": {
+                    "type": "string"
+                },
+                "group_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.GroupSeed": {
+            "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "genesis_block",
+                "group_id",
+                "group_name",
+                "owner_pubkey",
+                "signature"
+            ],
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "cipher_key": {
+                    "type": "string"
+                },
+                "consensus_type": {
+                    "type": "string"
+                },
+                "encryption_type": {
+                    "type": "string"
+                },
+                "genesis_block": {
+                    "$ref": "#/definitions/pb.Block"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "group_name": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.GrpProducerParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "producer_pubkey"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "producer_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.GrpProducerResult": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "owner_pubkey",
+                "producer_pubkey",
+                "signature",
+                "trx_id"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "producer_pubkey": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.LeaveGroupParam": {
+            "type": "object",
+            "required": [
+                "group_id"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.LeaveGroupResult": {
+            "type": "object",
+            "required": [
+                "group_id",
+                "signature"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.NetworkInfo": {
+            "type": "object",
+            "required": [
+                "addrs",
+                "eth_addr",
+                "groups",
+                "nat_enabled",
+                "nat_type",
+                "node",
+                "peer_id"
+            ],
+            "properties": {
+                "addrs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/multiaddr.Multiaddr"
+                    }
+                },
+                "eth_addr": {
+                    "type": "string"
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/handlers.groupNetworkInfo"
+                    }
+                },
+                "nat_enabled": {
+                    "type": "boolean"
+                },
+                "nat_type": {
+                    "type": "string"
+                },
+                "node": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "peer_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.NodeInfo": {
+            "type": "object",
+            "required": [
+                "node_id",
+                "node_publickey",
+                "node_status",
+                "node_type",
+                "node_version",
+                "peers"
+            ],
+            "properties": {
+                "node_id": {
+                    "type": "string"
+                },
+                "node_publickey": {
+                    "type": "string"
+                },
+                "node_status": {
+                    "type": "string"
+                },
+                "node_type": {
+                    "type": "string"
+                },
+                "node_version": {
+                    "type": "string"
+                },
+                "peers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "handlers.PingResp": {
+            "type": "object",
+            "properties": {
+                "ttl": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "handlers.ProducerListItem": {
+            "type": "object",
+            "properties": {
+                "blockProduced": {
+                    "type": "integer"
+                },
+                "ownerPubkey": {
+                    "type": "string"
+                },
+                "ownerSign": {
+                    "type": "string"
+                },
+                "producerPubkey": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.PubQueueInfo": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/chain.PublishQueueItem"
+                    }
+                },
+                "groupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.TrxAuthItem": {
+            "type": "object",
+            "properties": {
+                "authType": {
+                    "type": "string"
+                },
+                "trxType": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.TrxResult": {
+            "type": "object",
+            "required": [
+                "trx_id"
+            ],
+            "properties": {
+                "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.groupNetworkInfo": {
+            "type": "object",
+            "required": [
+                "GroupId",
+                "GroupName",
+                "Peers"
+            ],
+            "properties": {
+                "GroupId": {
+                    "type": "string"
+                },
+                "GroupName": {
+                    "type": "string"
+                },
+                "Peers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "internal_pkg_api.AddrProtoPair": {
+            "type": "object",
+            "properties": {
+                "local": {
+                    "type": "string"
+                },
+                "protocol": {
+                    "type": "string"
+                },
+                "remote": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.GrpUserParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "user_pubkey"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "user_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.GrpUserResult": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "encrypt_pubkey": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "sign": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                },
+                "user_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.PSPingParam": {
+            "type": "object",
+            "required": [
+                "peer_id"
+            ],
+            "properties": {
+                "peer_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.SchemaListItem": {
+            "type": "object",
+            "required": [
+                "rule",
+                "timeStamp",
+                "type"
+            ],
+            "properties": {
+                "rule": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.SchemaParam": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "memo",
+                "type"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "rule": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.SchemaResult": {
+            "type": "object",
+            "required": [
+                "action",
+                "group_id",
+                "owner_pubkey",
+                "schema_rule",
+                "schema_type",
+                "sign",
+                "trx_id"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "owner_pubkey": {
+                    "type": "string"
+                },
+                "schema_rule": {
+                    "type": "string"
+                },
+                "schema_type": {
+                    "type": "string"
+                },
+                "sign": {
+                    "type": "string"
+                },
+                "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_pkg_api.StartSyncResult": {
+            "type": "object",
+            "required": [
+                "groupId"
+            ],
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "multiaddr.Multiaddr": {
+            "type": "object"
+        },
+        "pb.Activity": {
+            "type": "object",
+            "properties": {
+                "actor": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "attachments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "attributedTo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "audience": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "bcc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "bto": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "cc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "content": {
+                    "type": "string"
+                },
+                "context": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "duration": {
+                    "type": "string"
+                },
+                "endtime": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "generator": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "icon": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "inReplyTo": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "instrument": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "location": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "object": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "origin": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "person": {
+                    "$ref": "#/definitions/pb.Person"
+                },
+                "preview": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "published": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "replies": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "result": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "startTime": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "summary": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "target": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "to": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "url": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Link"
+                    }
+                }
+            }
+        },
+        "pb.Block": {
+            "type": "object",
+            "properties": {
+                "BlockId": {
+                    "type": "string"
+                },
+                "GroupId": {
+                    "type": "string"
+                },
+                "Hash": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "PrevBlockId": {
+                    "type": "string"
+                },
+                "PreviousHash": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "ProducerPubKey": {
+                    "type": "string"
+                },
+                "Signature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "TimeStamp": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "Trxs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Trx"
+                    }
+                }
+            }
+        },
+        "pb.File": {
+            "type": "object",
+            "properties": {
+                "compression": {
+                    "type": "integer"
+                },
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "pb.Image": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "pb.Link": {
+            "type": "object",
+            "properties": {
+                "height": {
+                    "type": "integer"
+                },
+                "href": {
+                    "type": "string"
+                },
+                "hreflang": {
+                    "type": "string"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "preview": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "rel": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "width": {
+                    "type": "integer"
+                }
+            }
+        },
+        "pb.Object": {
+            "type": "object",
+            "properties": {
+                "attachments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "attributedTo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "audience": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "bcc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "bto": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "cc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "content": {
+                    "type": "string"
+                },
+                "context": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "duration": {
+                    "type": "string"
+                },
+                "endtime": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "file": {
+                    "$ref": "#/definitions/pb.File"
+                },
+                "generator": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "icon": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Image"
+                    }
+                },
+                "inreplyto": {
+                    "$ref": "#/definitions/pb.Reply"
+                },
+                "location": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "preview": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "published": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "replies": {
+                    "$ref": "#/definitions/pb.Object"
+                },
+                "startTime": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "summary": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "to": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Object"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated": {
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "url": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Link"
+                    }
+                }
+            }
+        },
+        "pb.Payment": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "pb.Person": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "$ref": "#/definitions/pb.Image"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "wallet": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pb.Payment"
+                    }
+                }
+            }
+        },
+        "pb.Reply": {
+            "type": "object",
+            "properties": {
+                "groupid": {
+                    "type": "string"
+                },
+                "trxid": {
+                    "type": "string"
+                }
+            }
+        },
+        "pb.Trx": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "Expired": {
+                    "type": "integer"
+                },
+                "GroupId": {
+                    "type": "string"
+                },
+                "Nonce": {
+                    "type": "integer"
+                },
+                "ResendCount": {
+                    "type": "integer"
+                },
+                "SenderPubkey": {
+                    "type": "string"
+                },
+                "SenderSign": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "TimeStamp": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "TrxId": {
+                    "type": "string"
+                },
+                "Type": {
+                    "type": "integer"
+                },
+                "Version": {
+                    "type": "string"
+                }
+            }
+        },
+        "proto.Message": {
+            "type": "object"
+        },
+        "timestamppb.Timestamp": {
+            "type": "object",
+            "properties": {
+                "nanos": {
+                    "description": "Non-negative fractions of a second at nanosecond resolution. Negative\nsecond values with fractions must still have non-negative nanos values\nthat count forward in time. Must be from 0 to 999,999,999\ninclusive.",
+                    "type": "integer"
+                },
+                "seconds": {
+                    "description": "Represents seconds of UTC time since Unix epoch\n1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n9999-12-31T23:59:59Z inclusive.",
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
