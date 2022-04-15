@@ -913,7 +913,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/internal_pkg_api.AddrProtoPair"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.AddrProtoPair"
                         }
                     }
                 }
@@ -996,7 +996,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/internal_pkg_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1103,7 +1103,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api.SenderList"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_app_api.SenderList"
                         }
                     }
                 ],
@@ -1142,7 +1142,7 @@
                     "200": {
                         "description": "a auth token",
                         "schema": {
-                            "$ref": "#/definitions/pkg_app_api.TokenItem"
+                            "$ref": "#/definitions/api.TokenItem"
                         }
                     }
                 }
@@ -1171,7 +1171,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/pkg_app_api.TokenItem"
+                            "$ref": "#/definitions/api.TokenItem"
                         }
                     }
                 }
@@ -1212,18 +1212,6 @@
         },
         "api.JoinGroupResult": {
             "type": "object",
-            "required": [
-                "app_key",
-                "cipher_key",
-                "consensus_type",
-                "encryption_type",
-                "group_id",
-                "group_name",
-                "owner_pubkey",
-                "signature",
-                "user_encryptpubkey",
-                "user_pubkey"
-            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1257,14 +1245,11 @@
                 }
             }
         },
-        "api.SenderList": {
+        "api.TokenItem": {
             "type": "object",
             "properties": {
-                "senders": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -1496,11 +1481,14 @@
                 }
             }
         },
-        "github.com_rumsystem_quorum_pkg_app_api.TokenItem": {
+        "github.com_rumsystem_quorum_pkg_app_api.SenderList": {
             "type": "object",
             "properties": {
-                "token": {
-                    "type": "string"
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -2737,11 +2725,14 @@
                 }
             }
         },
-        "pkg_app_api.TokenItem": {
+        "pkg_app_api.SenderList": {
             "type": "object",
             "properties": {
-                "token": {
-                    "type": "string"
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
