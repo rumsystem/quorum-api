@@ -746,7 +746,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/internal_pkg_api.StartSyncResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.StartSyncResult"
                         }
                     }
                 }
@@ -955,21 +955,44 @@
                 }
             }
         },
-        "/api/v1/node": {
+        "/api/v1/network/stats": {
             "get": {
-                "description": "Return the node info",
+                "description": "Get network stats summary",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Node"
                 ],
-                "summary": "GetNodeInfo",
+                "summary": "GetNetworkStatsSummary",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.NodeInfo"
+                            "$ref": "#/definitions/stats.NetworkStatsSummary"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/node": {
+            "get": {
+                "description": "Return the bootstrap node info",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "GetBootstrapNodeInfo",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -995,7 +1018,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.PSPingParam"
+                            "$ref": "#/definitions/internal_pkg_api.PSPingParam"
                         }
                     }
                 ],
@@ -1029,7 +1052,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/internal_pkg_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1175,7 +1198,7 @@
                     "200": {
                         "description": "a auth token",
                         "schema": {
-                            "$ref": "#/definitions/api.TokenItem"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_app_api.TokenItem"
                         }
                     }
                 }
@@ -1204,7 +1227,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/api.TokenItem"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_app_api.TokenItem"
                         }
                     }
                 }
@@ -1245,6 +1268,18 @@
         },
         "api.JoinGroupResult": {
             "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "group_id",
+                "group_name",
+                "owner_pubkey",
+                "signature",
+                "user_encryptpubkey",
+                "user_pubkey"
+            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1286,14 +1321,6 @@
                     "items": {
                         "type": "string"
                     }
-                }
-            }
-        },
-        "api.TokenItem": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
                 }
             }
         },
@@ -1480,6 +1507,14 @@
                     "type": "string"
                 },
                 "groupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_app_api.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
                     "type": "string"
                 }
             }
@@ -2717,8 +2752,47 @@
                 }
             }
         },
+        "pkg_app_api.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "proto.Message": {
             "type": "object"
+        },
+        "stats.NetworkStatsSummary": {
+            "type": "object",
+            "properties": {
+                "summary": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/stats.NetworkStatsSummaryItem"
+                    }
+                }
+            }
+        },
+        "stats.NetworkStatsSummaryItem": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "failed_count": {
+                    "type": "integer"
+                },
+                "in_size": {
+                    "type": "integer"
+                },
+                "out_size": {
+                    "type": "integer"
+                },
+                "success_count": {
+                    "type": "integer"
+                }
+            }
         },
         "timestamppb.Timestamp": {
             "type": "object",
