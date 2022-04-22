@@ -746,7 +746,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.StartSyncResult"
+                            "$ref": "#/definitions/internal_pkg_api.StartSyncResult"
                         }
                     }
                 }
@@ -949,7 +949,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/internal_pkg_api.AddrProtoPair"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.AddrProtoPair"
                         }
                     }
                 }
@@ -977,22 +977,19 @@
         },
         "/api/v1/node": {
             "get": {
-                "description": "Return the bootstrap node info",
+                "description": "Return the node info",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Node"
                 ],
-                "summary": "GetBootstrapNodeInfo",
+                "summary": "GetNodeInfo",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/handlers.NodeInfo"
                         }
                     }
                 }
@@ -1018,7 +1015,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_pkg_api.PSPingParam"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_internal_pkg_api.PSPingParam"
                         }
                     }
                 ],
@@ -1198,7 +1195,7 @@
                     "200": {
                         "description": "a auth token",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_app_api.TokenItem"
+                            "$ref": "#/definitions/pkg_app_api.TokenItem"
                         }
                     }
                 }
@@ -1227,7 +1224,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_app_api.TokenItem"
+                            "$ref": "#/definitions/pkg_app_api.TokenItem"
                         }
                     }
                 }
@@ -1326,6 +1323,21 @@
         },
         "api.groupInfo": {
             "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "group_id",
+                "group_name",
+                "group_status",
+                "highest_block_id",
+                "highest_height",
+                "last_updated",
+                "owner_pubkey",
+                "user_eth_addr",
+                "user_pubkey"
+            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1360,11 +1372,37 @@
                 "owner_pubkey": {
                     "type": "string"
                 },
+                "snapshot_info": {
+                    "$ref": "#/definitions/api.snapshotInfo"
+                },
                 "user_eth_addr": {
                     "type": "string"
                 },
                 "user_pubkey": {
                     "type": "string"
+                }
+            }
+        },
+        "api.snapshotInfo": {
+            "type": "object",
+            "properties": {
+                "highestBlockId": {
+                    "type": "string"
+                },
+                "highestHeight": {
+                    "type": "integer"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "senderPubkey": {
+                    "type": "string"
+                },
+                "snapshotPackageId": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
                 }
             }
         },
@@ -1384,6 +1422,9 @@
                 },
                 "state": {
                     "description": "in value only",
+                    "type": "string"
+                },
+                "storageType": {
                     "type": "string"
                 },
                 "trx": {
