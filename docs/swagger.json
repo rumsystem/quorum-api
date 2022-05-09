@@ -387,7 +387,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserParam"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserParam"
                         }
                     }
                 ],
@@ -395,7 +395,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserResult"
                         }
                     }
                 }
@@ -714,7 +714,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.StartSyncResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.StartSyncResult"
                         }
                     }
                 }
@@ -917,7 +917,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.AddrProtoPair"
+                            "$ref": "#/definitions/pkg_chainapi_api.AddrProtoPair"
                         }
                     }
                 }
@@ -945,19 +945,22 @@
         },
         "/api/v1/node": {
             "get": {
-                "description": "Return the node info",
+                "description": "Return the bootstrap node info",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Node"
                 ],
-                "summary": "GetNodeInfo",
+                "summary": "GetBootstrapNodeInfo",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.NodeInfo"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -983,7 +986,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PSPingParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PSPingParam"
                         }
                     }
                 ],
@@ -1017,7 +1020,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/pkg_chainapi_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1232,6 +1235,21 @@
         },
         "api.groupInfo": {
             "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "group_id",
+                "group_name",
+                "group_status",
+                "highest_block_id",
+                "highest_height",
+                "last_updated",
+                "owner_pubkey",
+                "user_eth_addr",
+                "user_pubkey"
+            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1266,11 +1284,37 @@
                 "owner_pubkey": {
                     "type": "string"
                 },
+                "snapshot_info": {
+                    "$ref": "#/definitions/api.snapshotInfo"
+                },
                 "user_eth_addr": {
                     "type": "string"
                 },
                 "user_pubkey": {
                     "type": "string"
+                }
+            }
+        },
+        "api.snapshotInfo": {
+            "type": "object",
+            "properties": {
+                "highestBlockId": {
+                    "type": "string"
+                },
+                "highestHeight": {
+                    "type": "integer"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "senderPubkey": {
+                    "type": "string"
+                },
+                "snapshotPackageId": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
                 }
             }
         },
