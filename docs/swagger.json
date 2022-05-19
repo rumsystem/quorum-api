@@ -387,7 +387,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserParam"
                         }
                     }
                 ],
@@ -395,7 +395,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserResult"
+                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserResult"
                         }
                     }
                 }
@@ -594,7 +594,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GroupContentObjectItem"
+                                "$ref": "#/definitions/pkg_chainapi_api.GroupContentObjectItem"
                             }
                         }
                     }
@@ -917,7 +917,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.AddrProtoPair"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.AddrProtoPair"
                         }
                     }
                 }
@@ -945,22 +945,19 @@
         },
         "/api/v1/node": {
             "get": {
-                "description": "Return the bootstrap node info",
+                "description": "Return the node info",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Node"
                 ],
-                "summary": "GetBootstrapNodeInfo",
+                "summary": "GetNodeInfo",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/handlers.NodeInfo"
                         }
                     }
                 }
@@ -1000,6 +997,43 @@
                 }
             }
         },
+        "/api/v1/tools/pubkeytoaddr": {
+            "post": {
+                "description": "Convert a based64 encoded libp2p pubkey to the eth address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tools"
+                ],
+                "summary": "PubkeyToEthaddr",
+                "parameters": [
+                    {
+                        "description": "PubkeyParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pkg_chainapi_api.PubkeyParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/trx/ack": {
             "post": {
                 "description": "ack pubqueue trxs",
@@ -1020,7 +1054,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1167,7 +1201,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/appapi.TokenItem"
+                            "$ref": "#/definitions/pkg_chainapi_appapi.TokenItem"
                         }
                     }
                 }
@@ -1349,14 +1383,6 @@
                 }
             }
         },
-        "appapi.TokenItem": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
-                }
-            }
-        },
         "chain.PublishQueueItem": {
             "type": "object",
             "properties": {
@@ -1490,6 +1516,17 @@
                 }
             }
         },
+        "github.com_rumsystem_quorum_pkg_chainapi_api.PubkeyParam": {
+            "type": "object",
+            "required": [
+                "encoded_pubkey"
+            ],
+            "properties": {
+                "encoded_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
         "github.com_rumsystem_quorum_pkg_chainapi_api.StartSyncResult": {
             "type": "object",
             "required": [
@@ -1500,6 +1537,14 @@
                     "type": "string"
                 },
                 "groupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_appapi.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
                     "type": "string"
                 }
             }
@@ -2724,6 +2769,17 @@
                 }
             }
         },
+        "pkg_chainapi_api.PubkeyParam": {
+            "type": "object",
+            "required": [
+                "encoded_pubkey"
+            ],
+            "properties": {
+                "encoded_pubkey": {
+                    "type": "string"
+                }
+            }
+        },
         "pkg_chainapi_api.StartSyncResult": {
             "type": "object",
             "required": [
@@ -2734,6 +2790,14 @@
                     "type": "string"
                 },
                 "groupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg_chainapi_appapi.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
                     "type": "string"
                 }
             }
