@@ -594,7 +594,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GroupContentObjectItem"
+                                "$ref": "#/definitions/pkg_chainapi_api.GroupContentObjectItem"
                             }
                         }
                     }
@@ -986,7 +986,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PSPingParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PSPingParam"
                         }
                     }
                 ],
@@ -1020,7 +1020,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubkeyParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PubkeyParam"
                         }
                     }
                 ],
@@ -1164,7 +1164,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.SenderList"
+                            "$ref": "#/definitions/pkg_chainapi_appapi.SenderList"
                         }
                     }
                 ],
@@ -1174,7 +1174,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.GroupContentObjectItem"
+                                "$ref": "#/definitions/pkg_chainapi_appapi.GroupContentObjectItem"
                             }
                         }
                     }
@@ -1204,7 +1204,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/appapi.TokenItem"
+                            "$ref": "#/definitions/pkg_chainapi_appapi.TokenItem"
                         }
                     }
                 }
@@ -1272,6 +1272,21 @@
         },
         "api.groupInfo": {
             "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "group_id",
+                "group_name",
+                "group_status",
+                "highest_block_id",
+                "highest_height",
+                "last_updated",
+                "owner_pubkey",
+                "user_eth_addr",
+                "user_pubkey"
+            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1306,6 +1321,9 @@
                 "owner_pubkey": {
                     "type": "string"
                 },
+                "snapshot_info": {
+                    "$ref": "#/definitions/api.snapshotInfo"
+                },
                 "user_eth_addr": {
                     "type": "string"
                 },
@@ -1314,11 +1332,26 @@
                 }
             }
         },
-        "appapi.TokenItem": {
+        "api.snapshotInfo": {
             "type": "object",
             "properties": {
-                "token": {
+                "highestBlockId": {
                     "type": "string"
+                },
+                "highestHeight": {
+                    "type": "integer"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "senderPubkey": {
+                    "type": "string"
+                },
+                "snapshotPackageId": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
                 }
             }
         },
@@ -1508,6 +1541,14 @@
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_appapi.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -2784,6 +2825,14 @@
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "pkg_chainapi_appapi.TokenItem": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
                 }
             }
         },
