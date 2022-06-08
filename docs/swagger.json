@@ -843,6 +843,40 @@
                 }
             }
         },
+        "/api/v1/keystore/signtx": {
+            "post": {
+                "description": "signature transaction with key name or key alias",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Keystore"
+                ],
+                "summary": "SignTx",
+                "parameters": [
+                    {
+                        "description": "tx param",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.SignTxParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.SignTxResult"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/network": {
             "get": {
                 "description": "Get node's network information",
@@ -945,22 +979,19 @@
         },
         "/api/v1/node": {
             "get": {
-                "description": "Return the bootstrap node info",
+                "description": "Return the node info",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Node"
                 ],
-                "summary": "GetBootstrapNodeInfo",
+                "summary": "GetNodeInfo",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/handlers.NodeInfo"
                         }
                     }
                 }
@@ -1057,7 +1088,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1164,7 +1195,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/appapi.SenderList"
+                            "$ref": "#/definitions/pkg_chainapi_appapi.SenderList"
                         }
                     }
                 ],
@@ -1174,7 +1205,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/appapi.GroupContentObjectItem"
+                                "$ref": "#/definitions/pkg_chainapi_appapi.GroupContentObjectItem"
                             }
                         }
                     }
@@ -1272,6 +1303,21 @@
         },
         "api.groupInfo": {
             "type": "object",
+            "required": [
+                "app_key",
+                "cipher_key",
+                "consensus_type",
+                "encryption_type",
+                "group_id",
+                "group_name",
+                "group_status",
+                "highest_block_id",
+                "highest_height",
+                "last_updated",
+                "owner_pubkey",
+                "user_eth_addr",
+                "user_pubkey"
+            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1306,6 +1352,9 @@
                 "owner_pubkey": {
                     "type": "string"
                 },
+                "snapshot_info": {
+                    "$ref": "#/definitions/api.snapshotInfo"
+                },
                 "user_eth_addr": {
                     "type": "string"
                 },
@@ -1314,34 +1363,26 @@
                 }
             }
         },
-        "appapi.GroupContentObjectItem": {
+        "api.snapshotInfo": {
             "type": "object",
             "properties": {
-                "content": {
-                    "$ref": "#/definitions/proto.Message"
+                "highestBlockId": {
+                    "type": "string"
                 },
-                "publisher": {
+                "highestHeight": {
+                    "type": "integer"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "senderPubkey": {
+                    "type": "string"
+                },
+                "snapshotPackageId": {
                     "type": "string"
                 },
                 "timeStamp": {
                     "type": "integer"
-                },
-                "trxId": {
-                    "type": "string"
-                },
-                "typeUrl": {
-                    "type": "string"
-                }
-            }
-        },
-        "appapi.SenderList": {
-            "type": "object",
-            "properties": {
-                "senders": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },
@@ -1497,6 +1538,59 @@
                 }
             }
         },
+        "github.com_rumsystem_quorum_pkg_chainapi_api.SignTxParam": {
+            "type": "object",
+            "required": [
+                "chain_id",
+                "data",
+                "to"
+            ],
+            "properties": {
+                "chain_id": {
+                    "description": "ChainID string, the number prefix determines the actual base",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "Data hex encode string, include prefix string \"0x\"",
+                    "type": "string"
+                },
+                "gas_limit": {
+                    "type": "integer"
+                },
+                "gas_price": {
+                    "description": "GasPrice string, the number prefix determines the actual base",
+                    "type": "string"
+                },
+                "keyalias": {
+                    "type": "string"
+                },
+                "keyname": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "to": {
+                    "description": "To eth address, e.g.: 0xab...",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "Value string, the number prefix determines the actual base",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_api.SignTxResult": {
+            "type": "object",
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "type": "string"
+                }
+            }
+        },
         "github.com_rumsystem_quorum_pkg_chainapi_api.StartSyncResult": {
             "type": "object",
             "required": [
@@ -1508,6 +1602,37 @@
                 },
                 "groupId": {
                     "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_appapi.GroupContentObjectItem": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "$ref": "#/definitions/proto.Message"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "trxId": {
+                    "type": "string"
+                },
+                "typeUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_appapi.SenderList": {
+            "type": "object",
+            "properties": {
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -2742,6 +2867,59 @@
                 }
             }
         },
+        "pkg_chainapi_api.SignTxParam": {
+            "type": "object",
+            "required": [
+                "chain_id",
+                "data",
+                "to"
+            ],
+            "properties": {
+                "chain_id": {
+                    "description": "ChainID string, the number prefix determines the actual base",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "Data hex encode string, include prefix string \"0x\"",
+                    "type": "string"
+                },
+                "gas_limit": {
+                    "type": "integer"
+                },
+                "gas_price": {
+                    "description": "GasPrice string, the number prefix determines the actual base",
+                    "type": "string"
+                },
+                "keyalias": {
+                    "type": "string"
+                },
+                "keyname": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "integer"
+                },
+                "to": {
+                    "description": "To eth address, e.g.: 0xab...",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "Value string, the number prefix determines the actual base",
+                    "type": "string"
+                }
+            }
+        },
+        "pkg_chainapi_api.SignTxResult": {
+            "type": "object",
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "type": "string"
+                }
+            }
+        },
         "pkg_chainapi_api.StartSyncResult": {
             "type": "object",
             "required": [
@@ -2753,6 +2931,37 @@
                 },
                 "groupId": {
                     "type": "string"
+                }
+            }
+        },
+        "pkg_chainapi_appapi.GroupContentObjectItem": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "$ref": "#/definitions/proto.Message"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "trxId": {
+                    "type": "string"
+                },
+                "typeUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg_chainapi_appapi.SenderList": {
+            "type": "object",
+            "properties": {
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
