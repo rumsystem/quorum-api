@@ -387,7 +387,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserParam"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserParam"
                         }
                     }
                 ],
@@ -395,7 +395,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserResult"
                         }
                     }
                 }
@@ -569,38 +569,6 @@
                 }
             }
         },
-        "/api/v1/group/{group_id}/content": {
-            "get": {
-                "description": "Get group content",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Groups"
-                ],
-                "summary": "GetGroupCtn",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Group Id",
-                        "name": "group_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GroupContentObjectItem"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/group/{group_id}/producers": {
             "get": {
                 "description": "Get the list of group producers",
@@ -714,7 +682,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.StartSyncResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.StartSyncResult"
                         }
                     }
                 }
@@ -863,7 +831,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.SignTxParam"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.SignTxParam"
                         }
                     }
                 ],
@@ -871,7 +839,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.SignTxResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.SignTxResult"
                         }
                     }
                 }
@@ -951,7 +919,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.AddrProtoPair"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.AddrProtoPair"
                         }
                     }
                 }
@@ -1017,7 +985,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PSPingParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PSPingParam"
                         }
                     }
                 ],
@@ -1051,7 +1019,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.PubkeyParam"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubkeyParam"
                         }
                     }
                 ],
@@ -1088,7 +1056,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1195,7 +1163,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/appapi.SenderList"
+                            "$ref": "#/definitions/pkg_chainapi_appapi.SenderList"
                         }
                     }
                 ],
@@ -1205,7 +1173,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/appapi.GroupContentObjectItem"
+                                "$ref": "#/definitions/pkg_chainapi_appapi.GroupContentObjectItem"
                             }
                         }
                     }
@@ -1235,7 +1203,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_appapi.TokenItem"
+                            "$ref": "#/definitions/appapi.TokenItem"
                         }
                     }
                 }
@@ -1256,18 +1224,6 @@
         },
         "api.JoinGroupResult": {
             "type": "object",
-            "required": [
-                "app_key",
-                "cipher_key",
-                "consensus_type",
-                "encryption_type",
-                "group_id",
-                "group_name",
-                "owner_pubkey",
-                "signature",
-                "user_encryptpubkey",
-                "user_pubkey"
-            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1386,34 +1342,11 @@
                 }
             }
         },
-        "appapi.GroupContentObjectItem": {
+        "appapi.TokenItem": {
             "type": "object",
             "properties": {
-                "content": {
-                    "$ref": "#/definitions/proto.Message"
-                },
-                "publisher": {
+                "token": {
                     "type": "string"
-                },
-                "timeStamp": {
-                    "type": "integer"
-                },
-                "trxId": {
-                    "type": "string"
-                },
-                "typeUrl": {
-                    "type": "string"
-                }
-            }
-        },
-        "appapi.SenderList": {
-            "type": "object",
-            "properties": {
-                "senders": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },
@@ -1453,26 +1386,6 @@
                     "type": "string"
                 },
                 "remote": {
-                    "type": "string"
-                }
-            }
-        },
-        "github.com_rumsystem_quorum_pkg_chainapi_api.GroupContentObjectItem": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "$ref": "#/definitions/proto.Message"
-                },
-                "publisher": {
-                    "type": "string"
-                },
-                "timeStamp": {
-                    "type": "integer"
-                },
-                "trxId": {
-                    "type": "string"
-                },
-                "typeUrl": {
                     "type": "string"
                 }
             }
@@ -1628,11 +1541,34 @@
                 }
             }
         },
-        "github.com_rumsystem_quorum_pkg_chainapi_appapi.TokenItem": {
+        "github.com_rumsystem_quorum_pkg_chainapi_appapi.GroupContentObjectItem": {
             "type": "object",
             "properties": {
-                "token": {
+                "content": {
+                    "$ref": "#/definitions/proto.Message"
+                },
+                "publisher": {
                     "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "trxId": {
+                    "type": "string"
+                },
+                "typeUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_appapi.SenderList": {
+            "type": "object",
+            "properties": {
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -2763,26 +2699,6 @@
                 }
             }
         },
-        "pkg_chainapi_api.GroupContentObjectItem": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "$ref": "#/definitions/proto.Message"
-                },
-                "publisher": {
-                    "type": "string"
-                },
-                "timeStamp": {
-                    "type": "integer"
-                },
-                "trxId": {
-                    "type": "string"
-                },
-                "typeUrl": {
-                    "type": "string"
-                }
-            }
-        },
         "pkg_chainapi_api.GrpUserParam": {
             "type": "object",
             "required": [
@@ -2934,11 +2850,34 @@
                 }
             }
         },
-        "pkg_chainapi_appapi.TokenItem": {
+        "pkg_chainapi_appapi.GroupContentObjectItem": {
             "type": "object",
             "properties": {
-                "token": {
+                "content": {
+                    "$ref": "#/definitions/proto.Message"
+                },
+                "publisher": {
                     "type": "string"
+                },
+                "timeStamp": {
+                    "type": "integer"
+                },
+                "trxId": {
+                    "type": "string"
+                },
+                "typeUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg_chainapi_appapi.SenderList": {
+            "type": "object",
+            "properties": {
+                "senders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
