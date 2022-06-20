@@ -831,7 +831,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.SignTxParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.SignTxParam"
                         }
                     }
                 ],
@@ -839,7 +839,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.SignTxResult"
+                            "$ref": "#/definitions/pkg_chainapi_api.SignTxResult"
                         }
                     }
                 }
@@ -919,7 +919,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.AddrProtoPair"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.AddrProtoPair"
                         }
                     }
                 }
@@ -985,7 +985,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PSPingParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PSPingParam"
                         }
                     }
                 ],
@@ -1019,7 +1019,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubkeyParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PubkeyParam"
                         }
                     }
                 ],
