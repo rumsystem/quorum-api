@@ -383,7 +383,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserParam"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserParam"
                         }
                     }
                 ],
@@ -391,7 +391,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserResult"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserResult"
                         }
                     }
                 }
@@ -900,7 +900,7 @@
         },
         "/api/v1/network/peers/ping": {
             "get": {
-                "description": "PingPeer",
+                "description": "PingPeers will ping all peers via psping",
                 "consumes": [
                     "application/json"
                 ],
@@ -910,12 +910,48 @@
                 "tags": [
                     "Node"
                 ],
-                "summary": "PingPeer",
+                "summary": "PingPeers",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.AddrProtoPair"
+                            "$ref": "#/definitions/pkg_chainapi_api.AddrProtoPair"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/network/relay": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Node"
+                ],
+                "summary": "AddRelayServers",
+                "parameters": [
+                    {
+                        "description": "Peers List",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pkg_chainapi_api.AddRelayServersResp"
                         }
                     }
                 }
@@ -1015,7 +1051,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubkeyParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.PubkeyParam"
                         }
                     }
                 ],
@@ -1052,7 +1088,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.PubQueueAckPayload"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.PubQueueAckPayload"
                         }
                     }
                 ],
@@ -1159,7 +1195,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_appapi.SenderList"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.SenderList"
                         }
                     }
                 ],
@@ -1169,7 +1205,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/pkg_chainapi_appapi.GroupContentObjectItem"
+                                "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.GroupContentObjectItem"
                             }
                         }
                     }
@@ -1254,18 +1290,6 @@
         },
         "api.JoinGroupResult": {
             "type": "object",
-            "required": [
-                "app_key",
-                "cipher_key",
-                "consensus_type",
-                "encryption_type",
-                "group_id",
-                "group_name",
-                "owner_pubkey",
-                "signature",
-                "user_encryptpubkey",
-                "user_pubkey"
-            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1369,6 +1393,14 @@
                 }
             }
         },
+        "github.com_rumsystem_quorum_pkg_chainapi_api.AddRelayServersResp": {
+            "type": "object",
+            "properties": {
+                "ok": {
+                    "type": "boolean"
+                }
+            }
+        },
         "github.com_rumsystem_quorum_pkg_chainapi_api.AddrProtoPair": {
             "type": "object",
             "properties": {
@@ -1435,6 +1467,19 @@
                 },
                 "user_pubkey": {
                     "type": "string"
+                }
+            }
+        },
+        "github.com_rumsystem_quorum_pkg_chainapi_api.P2PPingParam": {
+            "type": "object",
+            "required": [
+                "peer_id"
+            ],
+            "properties": {
+                "peer_id": {
+                    "type": "string",
+                    "maxLength": 53,
+                    "minLength": 53
                 }
             }
         },
@@ -1611,6 +1656,12 @@
             "properties": {
                 "err_count": {
                     "type": "integer"
+                },
+                "error": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "succ_count": {
                     "type": "integer"
@@ -2757,6 +2808,14 @@
                 }
             }
         },
+        "pkg_chainapi_api.AddRelayServersResp": {
+            "type": "object",
+            "properties": {
+                "ok": {
+                    "type": "boolean"
+                }
+            }
+        },
         "pkg_chainapi_api.AddrProtoPair": {
             "type": "object",
             "properties": {
@@ -2823,6 +2882,19 @@
                 },
                 "user_pubkey": {
                     "type": "string"
+                }
+            }
+        },
+        "pkg_chainapi_api.P2PPingParam": {
+            "type": "object",
+            "required": [
+                "peer_id"
+            ],
+            "properties": {
+                "peer_id": {
+                    "type": "string",
+                    "maxLength": 53,
+                    "minLength": 53
                 }
             }
         },
