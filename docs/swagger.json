@@ -383,7 +383,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserParam"
+                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserParam"
                         }
                     }
                 ],
@@ -391,7 +391,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.GrpUserResult"
+                            "$ref": "#/definitions/pkg_chainapi_api.GrpUserResult"
                         }
                     }
                 }
@@ -951,7 +951,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_api.AddRelayServersResp"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_api.AddRelayServersResp"
                         }
                     }
                 }
@@ -1232,7 +1232,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_appapi.CreateJWTParams"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.CreateJWTParams"
                         }
                     }
                 ],
@@ -1240,7 +1240,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_appapi.TokenItem"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.TokenItem"
                         }
                     }
                 }
@@ -1269,7 +1269,7 @@
                     "200": {
                         "description": "a new auth token",
                         "schema": {
-                            "$ref": "#/definitions/pkg_chainapi_appapi.TokenItem"
+                            "$ref": "#/definitions/github.com_rumsystem_quorum_pkg_chainapi_appapi.TokenItem"
                         }
                     }
                 }
@@ -1337,21 +1337,6 @@
         },
         "api.groupInfo": {
             "type": "object",
-            "required": [
-                "app_key",
-                "cipher_key",
-                "consensus_type",
-                "encryption_type",
-                "group_id",
-                "group_name",
-                "group_status",
-                "highest_block_id",
-                "highest_height",
-                "last_updated",
-                "owner_pubkey",
-                "user_eth_addr",
-                "user_pubkey"
-            ],
             "properties": {
                 "app_key": {
                     "type": "string"
@@ -1386,37 +1371,11 @@
                 "owner_pubkey": {
                     "type": "string"
                 },
-                "snapshot_info": {
-                    "$ref": "#/definitions/api.snapshotInfo"
-                },
                 "user_eth_addr": {
                     "type": "string"
                 },
                 "user_pubkey": {
                     "type": "string"
-                }
-            }
-        },
-        "api.snapshotInfo": {
-            "type": "object",
-            "properties": {
-                "highestBlockId": {
-                    "type": "string"
-                },
-                "highestHeight": {
-                    "type": "integer"
-                },
-                "nonce": {
-                    "type": "integer"
-                },
-                "senderPubkey": {
-                    "type": "string"
-                },
-                "snapshotPackageId": {
-                    "type": "string"
-                },
-                "timeStamp": {
-                    "type": "integer"
                 }
             }
         },
