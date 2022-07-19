@@ -56,7 +56,7 @@
                 "tags": [
                     "Groups"
                 ],
-                "summary": "CreateGroup",
+                "summary": "CreateGroupUrl",
                 "parameters": [
                     {
                         "description": "GroupInfo",
@@ -2025,14 +2025,10 @@
         "handlers.ClearGroupDataResult": {
             "type": "object",
             "required": [
-                "group_id",
-                "signature"
+                "group_id"
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
-                },
-                "signature": {
                     "type": "string"
                 }
             }
@@ -2199,14 +2195,10 @@
         "handlers.LeaveGroupResult": {
             "type": "object",
             "required": [
-                "group_id",
-                "signature"
+                "group_id"
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
-                },
-                "signature": {
                     "type": "string"
                 }
             }
