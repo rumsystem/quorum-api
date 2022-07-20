@@ -72,7 +72,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.GroupSeed"
+                            "$ref": "#/definitions/handlers.CreateGroupResult"
                         }
                     }
                 }
@@ -653,7 +653,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.GroupSeed"
+                            "$ref": "#/definitions/handlers.GetGroupSeedResult"
                         }
                     }
                 }
@@ -2062,6 +2062,33 @@
                     ]
                 },
                 "group_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.CreateGroupResult": {
+            "type": "object",
+            "required": [
+                "group_id",
+                "seed"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string"
+                },
+                "seed": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.GetGroupSeedResult": {
+            "type": "object",
+            "required": [
+                "seed"
+            ],
+            "properties": {
+                "seed": {
+                    "description": "seed url",
                     "type": "string"
                 }
             }
