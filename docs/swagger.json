@@ -1730,7 +1730,6 @@
             "required": [
                 "action",
                 "group_id",
-                "memo",
                 "type"
             ],
             "properties": {
