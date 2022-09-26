@@ -961,26 +961,6 @@
                 }
             }
         },
-        "/api/v1/network/stats": {
-            "get": {
-                "description": "Get network stats summary",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Node"
-                ],
-                "summary": "GetNetworkStatsSummary",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/stats.NetworkStatsSummary"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/node": {
             "get": {
                 "description": "Return the node info",
@@ -2884,37 +2864,6 @@
                 },
                 "Version": {
                     "type": "string"
-                }
-            }
-        },
-        "stats.NetworkStatsSummary": {
-            "type": "object",
-            "properties": {
-                "summary": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/stats.NetworkStatsSummaryItem"
-                    }
-                }
-            }
-        },
-        "stats.NetworkStatsSummaryItem": {
-            "type": "object",
-            "properties": {
-                "action": {
-                    "type": "string"
-                },
-                "failed_count": {
-                    "type": "integer"
-                },
-                "in_size": {
-                    "type": "integer"
-                },
-                "out_size": {
-                    "type": "integer"
-                },
-                "success_count": {
-                    "type": "integer"
                 }
             }
         },
