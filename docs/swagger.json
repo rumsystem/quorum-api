@@ -1125,6 +1125,40 @@
                 }
             }
         },
+        "/api/v2/group/join": {
+            "post": {
+                "description": "Join a group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "JoinGroup",
+                "parameters": [
+                    {
+                        "description": "JoinGroupParamV2",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.JoinGroupParamV2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.JoinGroupResult"
+                        }
+                    }
+                }
+            }
+        },
         "/app/api/v1/group/{group_id}/content": {
             "post": {
                 "description": "Get contents in a group",
@@ -2183,6 +2217,18 @@
                     "type": "string"
                 },
                 "trx_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.JoinGroupParamV2": {
+            "type": "object",
+            "required": [
+                "seed"
+            ],
+            "properties": {
+                "seed": {
+                    "description": "seed url",
                     "type": "string"
                 }
             }
