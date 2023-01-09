@@ -115,6 +115,9 @@
         "/api/v1/group/appconfig": {
             "post": {
                 "description": "set app config",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -180,6 +183,9 @@
         "/api/v1/group/clear": {
             "post": {
                 "description": "Clear group data",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -187,6 +193,17 @@
                     "Groups"
                 ],
                 "summary": "ClearGroupData",
+                "parameters": [
+                    {
+                        "description": "ClearGroupParam",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ClearGroupDataParam"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -880,7 +897,7 @@
                 "summary": "AddPeers",
                 "parameters": [
                     {
-                        "description": "Peers List",
+                        "description": "AddPeerParam",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -1128,10 +1145,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/api.PubkeyToEthaddrResult"
                         }
                     }
                 }
@@ -1425,7 +1439,8 @@
             "type": "object",
             "properties": {
                 "ok": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": true
                 }
             }
         },
@@ -1495,16 +1510,19 @@
                     "enum": [
                         "add",
                         "remove"
-                    ]
+                    ],
+                    "example": "add"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "memo": {
                     "type": "string"
                 },
                 "user_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 }
             }
         },
@@ -1512,28 +1530,35 @@
             "type": "object",
             "properties": {
                 "action": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ADD"
                 },
                 "encrypt_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "age1fx3ju9a2f3kpdh76375dect95wmvk084p8wxczeqdw8q2m0jtfks2k8pm9"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "memo": {
                     "type": "string"
                 },
                 "owner_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQLW2nWw+IhoJbTUmoq2ioT5plvvw/QmSeK2uBy090/3hg=="
                 },
                 "sign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "304402206a68e3393f4382c9978a19751496e730de94136a15ab77e30bab2f184bcb5646022041a9898bb5ff563a"
                 },
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "8a4ae55d-d576-490a-9b9a-80a21c761cef"
                 },
                 "user_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 }
             }
         },
@@ -1558,7 +1583,8 @@
                 "peer_id": {
                     "type": "string",
                     "maxLength": 53,
-                    "minLength": 53
+                    "minLength": 53,
+                    "example": "16Uiu2HAmTovb8kAJiYK8saskzz7cRQhb45NRK5AsbtdmYsLfD3RM"
                 }
             }
         },
@@ -1571,7 +1597,8 @@
                 "peer_id": {
                     "type": "string",
                     "maxLength": 53,
-                    "minLength": 53
+                    "minLength": 53,
+                    "example": "16Uiu2HAmTovb8kAJiYK8saskzz7cRQhb45NRK5AsbtdmYsLfD3RM"
                 }
             }
         },
@@ -1593,7 +1620,17 @@
             ],
             "properties": {
                 "encoded_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQPPewVN6uF9kAPmPl3XvDufBNGQhazxqk+nRnvBVFQgcw=="
+                }
+            }
+        },
+        "api.PubkeyToEthaddrResult": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string",
+                    "example": "0xC90B320afad63d82Fa2c888C47B54ADd5CDD2452"
                 }
             }
         },
@@ -1618,35 +1655,44 @@
             "properties": {
                 "chain_id": {
                     "description": "ChainID string, the number prefix determines the actual base",
-                    "type": "string"
+                    "type": "string",
+                    "example": "56"
                 },
                 "data": {
                     "description": "Data hex encode string, include prefix string \"0x\"",
-                    "type": "string"
+                    "type": "string",
+                    "example": "0x9a1fc3a7000..."
                 },
                 "gas_limit": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 21000
                 },
                 "gas_price": {
                     "description": "GasPrice string, the number prefix determines the actual base",
-                    "type": "string"
+                    "type": "string",
+                    "example": "13.070446545"
                 },
                 "keyalias": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "alias name"
                 },
                 "keyname": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "key name"
                 },
                 "nonce": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "to": {
-                    "description": "To eth address, e.g.: 0xab...",
-                    "type": "string"
+                    "description": "eth address",
+                    "type": "string",
+                    "example": "0xC90B320afad63d82Fa2c888C47B54ADd5CDD2452"
                 },
                 "value": {
                     "description": "Value string, the number prefix determines the actual base",
-                    "type": "string"
+                    "type": "string",
+                    "example": "1000000000"
                 }
             }
         },
@@ -1657,7 +1703,8 @@
             ],
             "properties": {
                 "data": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0x12ab.."
                 }
             }
         },
@@ -1679,22 +1726,28 @@
             "type": "object",
             "properties": {
                 "highestBlockId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5f3a1cb7-822a-4fb8-ae84-864c496ab8de"
                 },
                 "highestHeight": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "nonce": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 19500
                 },
                 "senderPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQMuaL8Y5TxbaO0ult7BTjYYhgrteewJANQGt/CYANjxQA=="
                 },
                 "snapshotPackageId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "9d381d97-1cf4-4d13-9f95-b816f01f4df5"
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1649096392051580700
                 }
             }
         },
@@ -1710,38 +1763,50 @@
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "example": [
+                        "513bd3f2-a0bc-470b-8063-ec9549f34b7d"
+                    ]
                 },
                 "expires_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2022-12-28T08:10:36.675204+00:00"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "allow-513bd3f2-a0bc-470b-8063-ec9549f34b7d"
                 },
                 "role": {
                     "type": "string",
                     "enum": [
                         "node",
                         "chain"
-                    ]
+                    ],
+                    "example": "node"
                 }
             }
         },
         "appapi.GroupContentObjectItem": {
             "type": "object",
             "properties": {
-                "content": {},
+                "content": {
+                    "description": "Content Example:\n\t\t{\n\t        \"type\": \"Note\",\n\t        \"content\": \"simple note by aa\",\n\t        \"name\": \"A simple Node id1\"\n\t    }"
+                },
                 "publisher": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOlA37+ghb05D5ZAKExjsto/H7eeCmkagcZ+BY/pjSOKw=="
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1629748212762123400
                 },
                 "trxId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "da2aaf30-39a8-4fe4-a0a0-44ceb71ac013"
                 },
                 "typeUrl": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "quorum.pb.Object"
                 }
             }
         },
@@ -1760,7 +1825,8 @@
             "type": "object",
             "properties": {
                 "token": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI1MTNiZDNmMi1hMGJjLTQ3MGItODA2My1lYzk1NDlmMzRiN2QiXSwiZXhwIjoxODI2MTA4MzA5LCJuYW1lIjoiYWxsb3ctNTEzYmQzZjItYTBiYy00NzBiLTgwNjMtZWM5NTQ5ZjM0YjdkIiwicm9sZSI6Im5vZGUifQ.CZQB2jzvY3lB_XgAd8izAQaunsHZFh1qN0tmSdYkce8"
                 }
             }
         },
@@ -1769,24 +1835,33 @@
             "properties": {
                 "UpdateAt": {
                     "type": "string",
-                    "example": "0"
+                    "example": "1650786473293614500"
                 },
                 "groupId": {
                     "description": "also stored in the key for quick indexing",
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "retryCount": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "state": {
                     "description": "in value only",
-                    "type": "string"
+                    "type": "string",
+                    "example": "SUCCESS"
                 },
                 "storageType": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CHAIN"
                 },
                 "trx": {
-                    "$ref": "#/definitions/pb.Trx"
+                    "description": "Trx Example:\n\t\t{\n\t        \"TrxId\": \"b5433111-f3a1-41e2-a03f-648e47a04dad\",\n\t        \"GroupId\": \"6bd70de8-addc-4b03-8271-a5a5b02d1ebd\",\n\t        \"Data\": \"jvFEEhBuwRpu7or2IUt8NdTZ1R/qzlXeJeseU7csZi+XYC28Fufj3aORoKVCAXyxBxZCuHe7kp6tKAScNxClqEX82+As+fKsBK6zTpB9gyO+fn2y\",\n\t        \"TimeStamp\": \"1650532131665550100\",\n\t        \"Version\": \"1.0.0\",\n\t        \"Expired\": 1650532161665550000,\n\t        \"Nonce\": 24000,\n\t        \"SenderPubkey\": \"CAISIQMrNsVK8/ZrJylBFJZEe6BnslK7B5wAygbxde+RG9Hafg==\",\n\t        \"SenderSign\": \"MEQCIDZlG/ILNC89z/OYEuADqYpHfx81pqA3RnOlLSCeypP3AiAFKLSD8M8TyNr6quYFCnuL1nzMwUlHWiEiVimDFCHlmQ==\"\n\t      }",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/pb.Trx"
+                        }
+                    ]
                 }
             }
         },
@@ -1817,34 +1892,44 @@
             ],
             "properties": {
                 "app_key": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "test_app"
                 },
                 "cipher_key": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "076a3cee50f3951744fbe6d973a853171139689fb48554b89f7765c0c6cbf15a"
                 },
                 "consensus_type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "poa"
                 },
                 "encryption_type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "public"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "c0020941-e648-40c9-92dc-682645acd17e"
                 },
                 "group_name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "demo group"
                 },
                 "owner_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQLW2nWw+IhoJbTUmoq2ioT5plvvw/QmSeK2uBy090/3hg=="
                 },
                 "signature": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "3045022100a819a627237e0bb0de1e69e3b29119efbf8677173f7e4d3a20830fc366c5bfd702200ad71e34b53da3ac5bcf3f8a46f1964b058ef36c2687d3b8effe4baec2acd2a6"
                 },
                 "user_encryptpubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "age1774tul0j5wy5y39saeg6enyst4gru2dwp7sjwgd4w9ahl6fkusxq3f8dcm"
                 },
                 "user_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQO7ury6x7aWpwUVn6mj2dZFqme3BAY5xDkYjqW/EbFFcA=="
                 }
             }
         },
@@ -1867,46 +1952,59 @@
             ],
             "properties": {
                 "app_key": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "test_app"
                 },
                 "cipher_key": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "58044622d48c4d91932583a05db3ff87f29acacb62e701916f7f0bbc6e446e5d"
                 },
                 "consensus_type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "POA"
                 },
                 "encryption_type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "PUBLIC"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "c0020941-e648-40c9-92dc-682645acd17e"
                 },
                 "group_name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "demo-app"
                 },
                 "group_status": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "IDLE"
                 },
                 "highest_block_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "989ffea1-083e-46b0-be02-3bad3de7d2e1"
                 },
                 "highest_height": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "last_updated": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1633022375303983600
                 },
                 "owner_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQLW2nWw+IhoJbTUmoq2ioT5plvvw/QmSeK2uBy090/3hg=="
                 },
                 "snapshot_info": {
                     "$ref": "#/definitions/api.snapshotInfo"
                 },
                 "user_eth_addr": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0495180230ae0f585ca0b4fc0767e616eaed45e400f470ed50c91668e1ed76c278b7fc5a129ff154c6b200a26cc78b7b4acc5b3915cdf66286c942aa5b65166ff5"
                 },
                 "user_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQO7ury6x7aWpwUVn6mj2dZFqme3BAY5xDkYjqW/EbFFcA=="
                 }
             }
         },
@@ -1914,16 +2012,19 @@
             "type": "object",
             "properties": {
                 "err_count": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 20
                 },
                 "error": {
+                    "description": "Example: {\"/ip4/132.145.109.63/tcp/10666/p2p/16Uiu2HAmTovb8kAJiYK8saskzz7cRQhb45NRK5AsbtdmYsLfD3RM\": \"error info\"}",
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
                     }
                 },
                 "succ_count": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 100
                 }
             }
         },
@@ -1940,20 +2041,24 @@
                     "enum": [
                         "add",
                         "remove"
-                    ]
+                    ],
+                    "example": "add"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "17a598a0-274b-45e7-a4b5-b81f9f274d50"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "comment/remark"
                 },
                 "type": {
                     "type": "string",
                     "enum": [
                         "user",
                         "producer"
-                    ]
+                    ],
+                    "example": "user"
                 }
             }
         },
@@ -1969,25 +2074,32 @@
             ],
             "properties": {
                 "action": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ADD"
                 },
                 "encrypt_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "age1fx3ju9a2f3kpdh76375dect95wmvk084p8wxczeqdw8q2m0jtfks2k8pm9"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "17a598a0-274b-45e7-a4b5-b81f9f274d50"
                 },
                 "sign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "3046022100a853ca31f6f6719be213231b6428cecf64de5b1042dd8af1e140499507c85c40022100abd6828478f56da213ec10d361be8709333ff44cd0fa037409af9c0b67e6d0f5"
                 },
                 "sign_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 },
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2e86c7fb-908e-4528-8f87-d3548e0137ab"
                 },
                 "type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "AS_USER"
                 }
             }
         },
@@ -2003,22 +2115,29 @@
             ],
             "properties": {
                 "action": {
-                    "type": "string"
+                    "description": "ACTION have 2 states: \"ADD\" means Producer is normal, \"REMOVE\" means Producer has announced to leave the group by itself",
+                    "type": "string",
+                    "example": "ADD"
                 },
                 "announcedPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 },
                 "announcerSign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "3046022100a853ca31f6f6719be213231b6428cecf64de5b1042dd8af1e140499507c85c40022100abd6828478f56da213ec10d361be8709333ff44cd0fa037409af9c0b67e6d0f5"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Memo"
                 },
                 "result": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ANNOUCNED"
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1634756064250457600
                 }
             }
         },
@@ -2026,22 +2145,28 @@
             "type": "object",
             "properties": {
                 "announcedEncryptPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "age1a68u5gafkt3yfsz7pr45j5ku3tyyk4xh9ydp3xwpaphksz54kgns99me0g"
                 },
                 "announcedSignPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQIWQX/5Nmy2/YoBbdO9jn4tDgn22prqOWMYusBR6axenw=="
                 },
                 "announcerSign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "30450221009974a5e0f3ea114de8469a806894410d12b5dc5d6d7ee21e49b5482cb062f1740220168185ad84777675ba29773942596f2db0fa5dd810185d2b8113ac0eaf4d7603"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Memo"
                 },
                 "result": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ANNOUNCED"
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1642609852758917000
                 }
             }
         },
@@ -2049,25 +2174,32 @@
             "type": "object",
             "properties": {
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "memo"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "test_string"
                 },
                 "ownerPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQJOfMIyaYuVpzdeXq5p+ku/8pSB6XEmUJfHIJ3A0wCkIg=="
                 },
                 "ownerSign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "304502210091dcc8d8e167c128ef59af1b6e2b2efece499043cc149014303b932485cde3240220427f81f2d7482df0d9a4ab2c019528b33776c73daf21ba98921ee6ff4417b1bc"
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1639518490895535600
                 },
                 "type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "STRING"
                 },
                 "value": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "123"
                 }
             }
         },
@@ -2097,16 +2229,20 @@
                     "enum": [
                         "add",
                         "del"
-                    ]
+                    ],
+                    "example": "add"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "add test_bool to group"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "test_bool"
                 },
                 "type": {
                     "type": "string",
@@ -2114,10 +2250,12 @@
                         "int",
                         "string",
                         "bool"
-                    ]
+                    ],
+                    "example": "bool"
                 },
                 "value": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "false"
                 }
             }
         },
@@ -2130,13 +2268,16 @@
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "signature": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "3045022100e1375e48cfbd51cb78afc413fcca084deae9eb7f8454c54832feb9ae00fada7702203ee6fe2292ea3a87d687ae3369012b7518010e555b913125b8a7bf54f211502a"
                 },
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "9e54c173-c1dd-429d-91fa-a6b43c14da77"
                 }
             }
         },
@@ -2149,13 +2290,16 @@
             ],
             "properties": {
                 "config": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "{\"action\":\"add\",  \"pubkey\":\"CAISIQNGAO67UTFSuWzySHKdy4IjBI/Q5XDMELPUSxHpBwQDcQ==\", \"trx_type\":[\"post\", \"announce\", \"req_block_forward\", \"req_block_backward\", \"ask_peerid\"]}"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ac0eea7c-2f3c-4c67-80b3-136e46b924a8"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "comment/remark"
                 },
                 "type": {
                     "type": "string",
@@ -2163,7 +2307,8 @@
                         "set_trx_auth_mode",
                         "upd_alw_list",
                         "upd_dny_list"
-                    ]
+                    ],
+                    "example": "upd_alw_list"
                 }
             }
         },
@@ -2177,16 +2322,20 @@
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "b3e1800a-af6e-4c67-af89-4ddcf831b6f7"
                 },
                 "owner_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQPLW/J9xgdMWoJxFttChoGOOld8TpChnGFFyPADGL+0JA=="
                 },
                 "signature": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "30440220089276796ceeef3a2c413bd89249475c2ecd8be4f2cb0ee3d19903fc45a7386b02206561bfdfb0338a9d022619dd8064e9a3496c1ea768f344e3c3850f8a907cdc73"
                 },
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "90e9818a-2e23-4248-93e3-d4ba1b100f4f"
                 }
             }
         },
@@ -2201,25 +2350,49 @@
             ],
             "properties": {
                 "groupOwnerPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQPLW/J9xgdMWoJxFttChoGOOld8TpChnGFFyPADGL+0JA=="
                 },
                 "groupOwnerSign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "304502210084bc833278dc98be6f279540b571ad5402f5c2d1e978c4c2298cddb079ca312002205f9374b9d27c628815aecff4ffe11329b17b8be12687223a072afa58e9f15f2c"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Memo"
                 },
                 "pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQNGAO67UTFSuWzySHKdy4IjBI/Q5XDMELPUSxHpBwQDcQ=="
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1642609852758917000
                 },
                 "trxType": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "example": [
+                        "POST",
+                        "ANNOUNCE",
+                        "REQ_BLOCK_FORWARD",
+                        "REQ_BLOCK_BACKWARD",
+                        "ASK_PEERID"
+                    ]
+                }
+            }
+        },
+        "handlers.ClearGroupDataParam": {
+            "type": "object",
+            "required": [
+                "group_id"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string",
+                    "example": "ac0eea7c-2f3c-4c67-80b3-136e46b924a8"
                 }
             }
         },
@@ -2230,7 +2403,8 @@
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ac0eea7c-2f3c-4c67-80b3-136e46b924a8"
                 }
             }
         },
@@ -2246,24 +2420,28 @@
                 "app_key": {
                     "type": "string",
                     "maxLength": 20,
-                    "minLength": 4
+                    "minLength": 4,
+                    "example": "test_app"
                 },
                 "consensus_type": {
                     "type": "string",
                     "enum": [
                         "pos",
                         "poa"
-                    ]
+                    ],
+                    "example": "poa"
                 },
                 "encryption_type": {
                     "type": "string",
                     "enum": [
                         "public",
                         "private"
-                    ]
+                    ],
+                    "example": "public"
                 },
                 "group_name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "demo group"
                 }
             }
         },
@@ -2275,10 +2453,13 @@
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "c0020941-e648-40c9-92dc-682645acd17e"
                 },
                 "seed": {
-                    "type": "string"
+                    "description": "seed url",
+                    "type": "string",
+                    "example": "rum://seed?v=1\u0026e=0\u0026n=0\u0026b=tknSczG2RC6hEBTXZyig7w\u0026c=Za8zI2nAWaTNSvSv6cnPPxHCZef9sGtKtgsZ8iSxj0E\u0026g=SfGcugfLTZ68Hc-xscFwMQ\u0026k=AnRP4sojIvAH-Ugqnd7ZaM1H8j_c1pX6clyeXgAORiGZ\u0026s=mrcA0LDzo54zUujZTINvWM_k2HSifv2T4JfYHAY2EzsCRGdR5vxHbvVNStlJOOBK_ohT6vFGs0FDk2pWYVRPUQE\u0026t=FyvyFrtDGC0\u0026a=timeline.dev\u0026y=group_timeline\u0026u=http%3A%2F%2F1.2.3.4%3A6090%3Fjwt%3DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI0OWYxOWNiYS0wN2NiLTRkOWUtYmMxZC1jZmIxYjFjMTcwMzEiXSwiZXhwIjoxODI3Mzc0MjgyLCJuYW1lIjoiYWxsb3ctNDlmMTljYmEtMDdjYi00ZDllLWJjMWQtY2ZiMWIxYzE3MDMxIiwicm9sZSI6Im5vZGUifQ.rr_tYm0aUdmOeM0EYVzNpKmoNDOpSGzD38s6tjlxuCo"
                 }
             }
         },
@@ -2290,7 +2471,8 @@
             "properties": {
                 "seed": {
                     "description": "seed url",
-                    "type": "string"
+                    "type": "string",
+                    "example": "rum://seed?v=1\u0026e=0\u0026n=0\u0026b=tknSczG2RC6hEBTXZyig7w\u0026c=Za8zI2nAWaTNSvSv6cnPPxHCZef9sGtKtgsZ8iSxj0E\u0026g=SfGcugfLTZ68Hc-xscFwMQ\u0026k=AnRP4sojIvAH-Ugqnd7ZaM1H8j_c1pX6clyeXgAORiGZ\u0026s=mrcA0LDzo54zUujZTINvWM_k2HSifv2T4JfYHAY2EzsCRGdR5vxHbvVNStlJOOBK_ohT6vFGs0FDk2pWYVRPUQE\u0026t=FyvyFrtDGC0\u0026a=timeline.dev\u0026y=group_timeline\u0026u=http%3A%2F%2F1.2.3.4%3A6090%3Fjwt%3DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI0OWYxOWNiYS0wN2NiLTRkOWUtYmMxZC1jZmIxYjFjMTcwMzEiXSwiZXhwIjoxODI3Mzc0MjgyLCJuYW1lIjoiYWxsb3ctNDlmMTljYmEtMDdjYi00ZDllLWJjMWQtY2ZiMWIxYzE3MDMxIiwicm9sZSI6Im5vZGUifQ.rr_tYm0aUdmOeM0EYVzNpKmoNDOpSGzD38s6tjlxuCo"
                 }
             }
         },
@@ -2309,39 +2491,52 @@
             ],
             "properties": {
                 "app_key": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "test_app"
                 },
                 "cipher_key": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "8e9bd83f84cf1408484d24f486861947a1db3fbe6eb3c61e31af55a4803aedc1"
                 },
                 "consensus_type": {
                     "type": "string",
                     "enum": [
                         "pos",
                         "poa"
-                    ]
+                    ],
+                    "example": "poa"
                 },
                 "encryption_type": {
                     "type": "string",
                     "enum": [
                         "public",
                         "private"
-                    ]
+                    ],
+                    "example": "public"
                 },
                 "genesis_block": {
-                    "$ref": "#/definitions/pb.Block"
+                    "description": "Example: {\n\t       \"BlockId\": \"80e3dbd6-24de-46cd-9290-ed2ae93ec3ac\",\n\t       \"GroupId\": \"c0020941-e648-40c9-92dc-682645acd17e\",\n\t       \"ProducerPubKey\": \"CAISIQLW2nWw+IhoJbTUmoq2ioT5plvvw/QmSeK2uBy090/3hg==\",\n\t       \"Hash\": \"LOZa0CLITIpuQqpvXb6LyXV9z+2rSoU4JwBq0BCXttc=\",\n\t       \"Signature\": \"MEQCICAXCicQ6f4hRNSoJR89DF3a6AKpe6ZgLXsjXqH9H3jxAiA8dpukcriwEu8amouh2ZEKA2peXr3ctKQwxI3R6+nrfg==\",\n\t       \"Timestamp\": 1632503907836381400\n\t   }",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/pb.Block"
+                        }
+                    ]
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "c0020941-e648-40c9-92dc-682645acd17e"
                 },
                 "group_name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "demo group"
                 },
                 "owner_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQLW2nWw+IhoJbTUmoq2ioT5plvvw/QmSeK2uBy090/3hg"
                 },
                 "signature": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "304502206897c3c67247cba2e8d5991501b3fd471fcca06f15915efdcd814b9e99c9a48a022100aa3024eb5663da6cbbde150132a4ff52c6c6aeeb49e0c039b4c28e72b071382f"
                 }
             }
         },
@@ -2358,16 +2553,20 @@
                     "enum": [
                         "add",
                         "remove"
-                    ]
+                    ],
+                    "example": "add"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "comment/remark"
                 },
                 "producer_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 }
             }
         },
@@ -2387,25 +2586,32 @@
                     "enum": [
                         "ADD",
                         "REMOVE"
-                    ]
+                    ],
+                    "example": "ADD"
                 },
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "5ed3f9fe-81e2-450d-9146-7a329aac2b62"
                 },
                 "memo": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "comment/remark"
                 },
                 "owner_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQNVGW0jrrKvo9/40lAyz/uICsyBbk465PmDKdWfcCM4JA=="
                 },
                 "producer_pubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 },
                 "signature": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "304402202cbca750600cd0aeb3a1076e4aa20e9d1110fe706a553df90d0cd69289628eed022042188b48fa75d0197d9f5ce03499d3b95ffcdfb0ace707cf3eda9f12473db0ea"
                 },
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "6bff5556-4dc9-4cb6-a595-2181aaebdc26"
                 }
             }
         },
@@ -2417,7 +2623,8 @@
             "properties": {
                 "seed": {
                     "description": "seed url",
-                    "type": "string"
+                    "type": "string",
+                    "example": "rum://seed?v=1\u0026e=0\u0026n=0\u0026b=tknSczG2RC6hEBTXZyig7w\u0026c=Za8zI2nAWaTNSvSv6cnPPxHCZef9sGtKtgsZ8iSxj0E\u0026g=SfGcugfLTZ68Hc-xscFwMQ\u0026k=AnRP4sojIvAH-Ugqnd7ZaM1H8j_c1pX6clyeXgAORiGZ\u0026s=mrcA0LDzo54zUujZTINvWM_k2HSifv2T4JfYHAY2EzsCRGdR5vxHbvVNStlJOOBK_ohT6vFGs0FDk2pWYVRPUQE\u0026t=FyvyFrtDGC0\u0026a=timeline.dev\u0026y=group_timeline\u0026u=http%3A%2F%2F1.2.3.4%3A6090%3Fjwt%3DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI0OWYxOWNiYS0wN2NiLTRkOWUtYmMxZC1jZmIxYjFjMTcwMzEiXSwiZXhwIjoxODI3Mzc0MjgyLCJuYW1lIjoiYWxsb3ctNDlmMTljYmEtMDdjYi00ZDllLWJjMWQtY2ZiMWIxYzE3MDMxIiwicm9sZSI6Im5vZGUifQ.rr_tYm0aUdmOeM0EYVzNpKmoNDOpSGzD38s6tjlxuCo"
                 }
             }
         },
@@ -2428,7 +2635,8 @@
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ac0eea7c-2f3c-4c67-80b3-136e46b924a8"
                 }
             }
         },
@@ -2439,7 +2647,8 @@
             ],
             "properties": {
                 "group_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ac0eea7c-2f3c-4c67-80b3-136e46b924a8"
                 }
             }
         },
@@ -2456,11 +2665,13 @@
             ],
             "properties": {
                 "addrs": {
+                    "description": "Example: [\"/ip4/192.168.20.17/tcp/7002\", \"/ip4/127.0.0.1/tcp/7002\"]",
                     "type": "array",
                     "items": {}
                 },
                 "eth_addr": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0x4daD72e78c3537a8852ca7b3d1742Dd42c30441A"
                 },
                 "groups": {
                     "type": "array",
@@ -2469,17 +2680,20 @@
                     }
                 },
                 "nat_enabled": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": true
                 },
                 "nat_type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Public"
                 },
                 "node": {
                     "type": "object",
                     "additionalProperties": true
                 },
                 "peer_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "16Uiu2HAm8XVpfQrJYaeL7XtrHC3FvfKt2QW7P8R3MBenYyHxu8Kk"
                 }
             }
         },
@@ -2495,21 +2709,27 @@
             ],
             "properties": {
                 "node_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "16Uiu2HAkytdk8dhP8Z1JWvsM7qYPSLpHxLCfEWkSomqn7Tj6iC2d"
                 },
                 "node_publickey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQJCVubdxsT/FKvnBT9r68W4Nmh0/2it7KY+dA7x25NtYg=="
                 },
                 "node_status": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "NODE_ONLINE"
                 },
                 "node_type": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "peer"
                 },
                 "node_version": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "1.0.0 - 99bbd8e65105c72b5ca57e94ae5be117eaf05f0d"
                 },
                 "peers": {
+                    "description": "Example: {\"/quorum/nevis/meshsub/1.1.0\": [\"16Uiu2HAmM4jFjs5EjakvGgJkHS6Lg9jS6miNYPgJ3pMUvXGWXeTc\"]}",
                     "type": "object",
                     "additionalProperties": {
                         "type": "array",
@@ -2527,7 +2747,19 @@
                     "type": "array",
                     "items": {
                         "type": "integer"
-                    }
+                    },
+                    "example": [
+                        10,
+                        11,
+                        12,
+                        13,
+                        15,
+                        20,
+                        10,
+                        20,
+                        9,
+                        30
+                    ]
                 }
             }
         },
@@ -2535,19 +2767,24 @@
             "type": "object",
             "properties": {
                 "blockProduced": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "ownerPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQNVGW0jrrKvo9/40lAyz/uICsyBbk465PmDKdWfcCM4JA=="
                 },
                 "ownerSign": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "304402202cbca750600cd0aeb3a1076e4aa20e9d1110fe706a553df90d0cd69289628eed022042188b48fa75d0197d9f5ce03499d3b95ffcdfb0ace707cf3eda9f12473db0ea"
                 },
                 "producerPubkey": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "CAISIQOxCH2yVZPR8t6gVvZapxcIPBwMh9jB80pDLNeuA5s8hQ=="
                 },
                 "timeStamp": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1634756661280204800
                 }
             }
         },
@@ -2561,7 +2798,8 @@
                     }
                 },
                 "groupId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "c8795b55-90bf-4b58-aaa0-86d11fe4e16a"
                 }
             }
         },
@@ -2569,10 +2807,12 @@
             "type": "object",
             "properties": {
                 "authType": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "FOLLOW_ALW_LIST"
                 },
                 "trxType": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "POST"
                 }
             }
         },
@@ -2583,7 +2823,8 @@
             ],
             "properties": {
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "9e54c173-c1dd-429d-91fa-a6b43c14da77"
                 }
             }
         },
@@ -2594,7 +2835,8 @@
             ],
             "properties": {
                 "trx_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "9e54c173-c1dd-429d-91fa-a6b43c14da77"
                 }
             }
         },
@@ -2607,16 +2849,22 @@
             ],
             "properties": {
                 "GroupId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "997ce496-661b-457b-8c6a-f57f6d9862d0"
                 },
                 "GroupName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "pb_group_1"
                 },
                 "Peers": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "example": [
+                        "16Uiu2HAkuXLC2hZTRbWToCNztyWB39KDi8g66ou3YrSzeTbsWsFG",
+                        "16Uiu2HAm8XVpfQrJYaeL7XtrHC3FvfKt2QW7P8R3MBenYyHxu8Kk"
+                    ]
                 }
             }
         },
