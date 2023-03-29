@@ -1933,11 +1933,43 @@
         "api.NSdkSendTrxParams": {
             "type": "object",
             "required": [
-                "trx"
+                "data",
+                "sender_pubkey",
+                "sender_sign",
+                "trx_id",
+                "version"
             ],
             "properties": {
-                "trx": {
-                    "$ref": "#/definitions/pb.Trx"
+                "data": {
+                    "type": "string",
+                    "format": "base64",
+                    "example": "eyJ0eXBlIjogIkxpa2UiLCAib2JqZWN0IjogeyJ0eXBlIjogIk5vdGUiLCAiaWQiOiAiN2I2NWViYzgtZTk0ZS00ZjBhLWIxNGUtOTMwYWYyOWQyNDgxIn19"
+                },
+                "expired": {
+                    "type": "integer",
+                    "example": 1680067046530
+                },
+                "sender_pubkey": {
+                    "type": "string",
+                    "example": "A0rTbiviB1KMgrcehCU9uYiEM2oSUigv_qdCJgW_etO3"
+                },
+                "sender_sign": {
+                    "type": "string",
+                    "format": "base64",
+                    "example": "d3DGzZbDZr/exsbHsUK0VRbreIBjKP4bON0+N2Ri3BZdHOn2znf1LXu4QYSkZlr5RVNE946G92gKNlRfuF0/IwE="
+                },
+                "timestamp": {
+                    "description": "millisecond",
+                    "type": "integer",
+                    "example": 1680066699716
+                },
+                "trx_id": {
+                    "type": "string",
+                    "example": "9428e2f7-b585-4c0b-bc8f-835482cb2f26"
+                },
+                "version": {
+                    "type": "string",
+                    "example": "2.0.0"
                 }
             }
         },
