@@ -1945,10 +1945,6 @@
                     "format": "base64",
                     "example": "eyJ0eXBlIjogIkxpa2UiLCAib2JqZWN0IjogeyJ0eXBlIjogIk5vdGUiLCAiaWQiOiAiN2I2NWViYzgtZTk0ZS00ZjBhLWIxNGUtOTMwYWYyOWQyNDgxIn19"
                 },
-                "expired": {
-                    "type": "integer",
-                    "example": 1680067046530
-                },
                 "sender_pubkey": {
                     "type": "string",
                     "example": "A0rTbiviB1KMgrcehCU9uYiEM2oSUigv_qdCJgW_etO3"
@@ -1959,9 +1955,9 @@
                     "example": "d3DGzZbDZr/exsbHsUK0VRbreIBjKP4bON0+N2Ri3BZdHOn2znf1LXu4QYSkZlr5RVNE946G92gKNlRfuF0/IwE="
                 },
                 "timestamp": {
-                    "description": "millisecond",
-                    "type": "integer",
-                    "example": 1680066699716
+                    "description": "nanosecond",
+                    "type": "string",
+                    "example": "1680157672961799"
                 },
                 "trx_id": {
                     "type": "string",
@@ -2810,7 +2806,7 @@
             ],
             "properties": {
                 "data": {
-                    "description": "Example:\n\t{\n\t\t\"type\": \"Create\",\n\t\t\"object\": {\n\t\t\t\"type\": \"Note\",\n\t\t\t\"id\": 1,\n\t\t\t\"content\": \"hello world\"\n\t\t}\n\t}",
+                    "description": "Data Example:\n\t{\n\t\t\"type\": \"Create\",\n\t\t\"object\": {\n\t\t\t\"type\": \"Note\",\n\t\t\t\"id\": 1,\n\t\t\t\"content\": \"hello world\"\n\t\t}\n\t}",
                     "type": "object",
                     "additionalProperties": true
                 },
