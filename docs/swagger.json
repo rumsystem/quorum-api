@@ -1601,6 +1601,44 @@
                 }
             }
         },
+        "/app/api/v1/token": {
+            "delete": {
+                "description": "Remove a auth token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apps"
+                ],
+                "summary": "RemoveToken",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "current auth token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "remove jwt params",
+                        "name": "remove_jwt_params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appapi.RemoveJWTParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.SuccessResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/app/api/v1/token/create": {
             "post": {
                 "description": "Create a new auth token, only allow access from localhost",
@@ -1635,6 +1673,35 @@
                 }
             }
         },
+        "/app/api/v1/token/list": {
+            "get": {
+                "description": "List all auth token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apps"
+                ],
+                "summary": "ListToken",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "current auth token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/options.JWT"
+                        }
+                    }
+                }
+            }
+        },
         "/app/api/v1/token/refresh": {
             "post": {
                 "description": "Get a new auth token",
@@ -1659,6 +1726,47 @@
                         "description": "a new auth token",
                         "schema": {
                             "$ref": "#/definitions/appapi.TokenItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/api/v1/token/revoke": {
+            "post": {
+                "description": "Revoke a auth token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Apps"
+                ],
+                "summary": "RevokeToken",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "current auth token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "revoke jwt params",
+                        "name": "revoke_jwt_params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appapi.RevokeJWTParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.SuccessResponse"
                         }
                     }
                 }
@@ -2086,18 +2194,13 @@
                 "role"
             ],
             "properties": {
-                "allow_groups": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "example": [
-                        "513bd3f2-a0bc-470b-8063-ec9549f34b7d"
-                    ]
-                },
                 "expires_at": {
                     "type": "string",
                     "example": "2022-12-28T08:10:36.675204+00:00"
+                },
+                "group_id": {
+                    "type": "string",
+                    "example": "513bd3f2-a0bc-470b-8063-ec9549f34b7d"
                 },
                 "name": {
                     "type": "string",
@@ -2110,6 +2213,56 @@
                         "chain"
                     ],
                     "example": "node"
+                }
+            }
+        },
+        "appapi.RemoveJWTParams": {
+            "type": "object",
+            "required": [
+                "role",
+                "token"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string",
+                    "example": "513bd3f2-a0bc-470b-8063-ec9549f34b7d"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "node",
+                        "chain"
+                    ],
+                    "example": "node"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI1MTNiZDNmMi1hMGJjLTQ3MGItODA2My1lYzk1NDlmMzRiN2QiXSwiZXhwIjoxODI2MTA4MzA5LCJuYW1lIjoiYWxsb3ctNTEzYmQzZjItYTBiYy00NzBiLTgwNjMtZWM5NTQ5ZjM0YjdkIiwicm9sZSI6Im5vZGUifQ.CZQB2jzvY3lB_XgAd8izAQaunsHZFh1qN0tmSdYkce8"
+                }
+            }
+        },
+        "appapi.RevokeJWTParams": {
+            "type": "object",
+            "required": [
+                "role",
+                "token"
+            ],
+            "properties": {
+                "group_id": {
+                    "type": "string",
+                    "example": "513bd3f2-a0bc-470b-8063-ec9549f34b7d"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "node",
+                        "chain"
+                    ],
+                    "example": "node"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI1MTNiZDNmMi1hMGJjLTQ3MGItODA2My1lYzk1NDlmMzRiN2QiXSwiZXhwIjoxODI2MTA4MzA5LCJuYW1lIjoiYWxsb3ctNTEzYmQzZjItYTBiYy00NzBiLTgwNjMtZWM5NTQ5ZjM0YjdkIiwicm9sZSI6Im5vZGUifQ.CZQB2jzvY3lB_XgAd8izAQaunsHZFh1qN0tmSdYkce8"
                 }
             }
         },
@@ -2581,6 +2734,10 @@
                     "maxLength": 100,
                     "minLength": 2,
                     "example": "demo group"
+                },
+                "include_chain_url": {
+                    "type": "boolean",
+                    "example": true
                 }
             }
         },
@@ -2894,6 +3051,51 @@
                 }
             }
         },
+        "options.JWT": {
+            "type": "object",
+            "properties": {
+                "chain": {
+                    "$ref": "#/definitions/options.JWTListItem"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "node": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/options.JWTListItem"
+                    }
+                }
+            }
+        },
+        "options.JWTListItem": {
+            "type": "object",
+            "properties": {
+                "normal": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/options.TokenItem"
+                    }
+                },
+                "revoke": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/options.TokenItem"
+                    }
+                }
+            }
+        },
+        "options.TokenItem": {
+            "type": "object",
+            "properties": {
+                "remark": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "pb.AnnounceItem": {
             "type": "object",
             "properties": {
@@ -3053,6 +3255,14 @@
                 },
                 "Version": {
                     "type": "string"
+                }
+            }
+        },
+        "utils.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
                 }
             }
         }
