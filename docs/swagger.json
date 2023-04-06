@@ -1658,13 +1658,28 @@
                         "required": true
                     },
                     {
-                        "description": "remove jwt params",
-                        "name": "remove_jwt_params",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/appapi.RemoveJWTParams"
-                        }
+                        "type": "string",
+                        "example": "513bd3f2-a0bc-470b-8063-ec9549f34b7d",
+                        "name": "group_id",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "node",
+                            "chain"
+                        ],
+                        "type": "string",
+                        "example": "node",
+                        "name": "role",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI1MTNiZDNmMi1hMGJjLTQ3MGItODA2My1lYzk1NDlmMzRiN2QiXSwiZXhwIjoxODI2MTA4MzA5LCJuYW1lIjoiYWxsb3ctNTEzYmQzZjItYTBiYy00NzBiLTgwNjMtZWM5NTQ5ZjM0YjdkIiwicm9sZSI6Im5vZGUifQ.CZQB2jzvY3lB_XgAd8izAQaunsHZFh1qN0tmSdYkce8",
+                        "name": "token",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -2217,31 +2232,6 @@
                         "chain"
                     ],
                     "example": "node"
-                }
-            }
-        },
-        "appapi.RemoveJWTParams": {
-            "type": "object",
-            "required": [
-                "role",
-                "token"
-            ],
-            "properties": {
-                "group_id": {
-                    "type": "string",
-                    "example": "513bd3f2-a0bc-470b-8063-ec9549f34b7d"
-                },
-                "role": {
-                    "type": "string",
-                    "enum": [
-                        "node",
-                        "chain"
-                    ],
-                    "example": "node"
-                },
-                "token": {
-                    "type": "string",
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd0dyb3VwcyI6WyI1MTNiZDNmMi1hMGJjLTQ3MGItODA2My1lYzk1NDlmMzRiN2QiXSwiZXhwIjoxODI2MTA4MzA5LCJuYW1lIjoiYWxsb3ctNTEzYmQzZjItYTBiYy00NzBiLTgwNjMtZWM5NTQ5ZjM0YjdkIiwicm9sZSI6Im5vZGUifQ.CZQB2jzvY3lB_XgAd8izAQaunsHZFh1qN0tmSdYkce8"
                 }
             }
         },
