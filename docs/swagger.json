@@ -1830,6 +1830,7 @@
                 "group_name",
                 "last_updated",
                 "owner_pubkey",
+                "peers",
                 "rex_Syncer_result",
                 "rex_syncer_status",
                 "user_eth_addr",
@@ -1875,6 +1876,16 @@
                 "owner_pubkey": {
                     "type": "string",
                     "example": "CAISIQLW2nWw+IhoJbTUmoq2ioT5plvvw/QmSeK2uBy090/3hg=="
+                },
+                "peers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "16Uiu2HAkuXLC2hZTRbWToCNztyWB39KDi8g66ou3YrSzeTbsWsFG",
+                        "16Uiu2HAm8XVpfQrJYaeL7XtrHC3FvfKt2QW7P8R3MBenYyHxu8Kk"
+                    ]
                 },
                 "rex_Syncer_result": {
                     "$ref": "#/definitions/def.RexSyncResult"
