@@ -2928,6 +2928,9 @@
                 "peers"
             ],
             "properties": {
+                "mem": {
+                    "$ref": "#/definitions/handlers.NodeInfoMem"
+                },
                 "node_id": {
                     "type": "string",
                     "example": "16Uiu2HAkytdk8dhP8Z1JWvsM7qYPSLpHxLCfEWkSomqn7Tj6iC2d"
@@ -2957,6 +2960,38 @@
                             "type": "string"
                         }
                     }
+                }
+            }
+        },
+        "handlers.NodeInfoMem": {
+            "type": "object",
+            "properties": {
+                "heap_alloc": {
+                    "description": "OS memory being used",
+                    "type": "integer"
+                },
+                "heap_inuse": {
+                    "description": "OS memory being used",
+                    "type": "integer"
+                },
+                "heap_sys": {
+                    "description": "OS memory being used",
+                    "type": "integer"
+                },
+                "num_gc": {
+                    "type": "integer"
+                },
+                "stack_inuse": {
+                    "description": "OS memory being used",
+                    "type": "integer"
+                },
+                "stack_sys": {
+                    "description": "OS memory being used",
+                    "type": "integer"
+                },
+                "sys": {
+                    "description": "OS memory being used",
+                    "type": "integer"
                 }
             }
         },
